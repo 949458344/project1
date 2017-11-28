@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>后台管理中心</title>
+    <link rel="stylesheet" href="__ROOT__/static/admin/css/pintuer.css">
+    <link rel="stylesheet" href="__ROOT__/static/admin/css/admin.css">
+    <script src="__ROOT__/static/admin/js/jquery.js"></script>
+</head>
+<body style="background-color:#f2f9fd;">
+<div class="header bg-main">
+    <div class="logo margin-big-left fadein-top">
+        <h1><img src="__ROOT__/static/admin/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
+    </div>
+    <div class="head-l"><a class="button button-little bg-green" href="{:url('index/index/index')}" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;<a href="{:url('Admin/index/delCacheFile')}" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="{:url('index/loginout')}"><span class="icon-power-off"></span> 退出登录</a> </div>
+    <div style="float: right;padding-right: 30px;margin-top: 20px;font-size: 25px;">{$admin.username}</div>
+</div>
+<div class="leftnav">
+    <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
+    <h2><span class="icon-user"></span>基本设置</h2>
+    <ul style="display:block">
+        {volist name="nodelists" id="vo"}
+        <li><a href="{:url($vo.url)}"><span class="icon-caret-right"></span>{$vo.title}</a></li>
+        {/volist}
+        <!--<li><a href="{:url('picture/index')}"><span class="icon-caret-right"></span>图片管理</a></li>
+        <li><a href="{:url('link/index')}"><span class="icon-caret-right"></span>链接管理</a></li>
+        <li><a href="{:url('nav/index')}"><span class="icon-caret-right"></span>分类管理</a></li>
+        <li><a href="{:url('news/index')}"><span class="icon-caret-right"></span>新闻管理</a></li>
+        <li><a href="{:url('node/index')}"><span class="icon-caret-right"></span>节点（权限）管理</a></li>
+        <li><a href="{:url('role/index')}"><span class="icon-caret-right"></span>角色管理</a></li>-->
+    </ul>
+    <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
+    <ul style="display:block">
+        <li><a href="{:url('jhapi/index')}"><span class="icon-caret-right"></span>聚合接口</a></li>
+        <li><a href="{:url('wx/index')}"><span class="icon-caret-right"></span>微信接口</a></li>
+        <li><a href="{:url('adminlogs/index')}"><span class="icon-caret-right"></span>管理员日志</a></li>
+        <li><a href="{:url('phonemsg/index')}"><span class="icon-caret-right"></span>短信管理</a></li>
+        <li><a href="{:url('mail/index')}"><span class="icon-caret-right"></span>邮件管理</a></li>
+        <li><a href="{:url('excel/index')}"><span class="icon-caret-right"></span>excel,导入\出</a></li>
+        <li><a href="{:url('cartogram/index')}"><span class="icon-caret-right"></span>统计图(jpgraph)</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $(".leftnav h2").click(function(){
+            $(this).next().slideToggle(200);
+            $(this).toggleClass("on");
+        })
+        $(".leftnav ul li a").click(function(){
+            $("#a_leader_txt").text($(this).text());
+            $(".leftnav ul li a").removeClass("on");
+            $(this).addClass("on");
+        })
+    });
+</script>
+<ul class="bread">
+    <li><a href="" target="right" class="icon-home"> 首页</a></li>
+    <li><a href="##" id="a_leader_txt">网站信息</a></li>
+    <li><b>当前语言：</b><span style="color:red;">中文</php></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
+</ul>
+<div class="admin">

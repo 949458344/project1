@@ -1,0 +1,35 @@
+{include file="base/header" /}
+<div class="scd clearfix">
+    <div class="scd_l">
+        <div class="title"><span>{$navs.title}</span></div>
+        <div class="scd_lm">
+            <ul class="s_nav s_nav_a">
+                {volist name="topNews" id="vo"}
+                <li class="now">
+                    <div class="li_m">
+                        <a href="{:url('index/detail','id='.$vo['id'])}"><span>{$vo.title}</span></a>
+                    </div>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <div class="scd_r">
+        <div class="title">
+            <span>{$navs.title}</span>
+            <div class="pst">
+                当前位置：<a href="{:url('index')}">首页</a>><a href="">{$navs.title}</a>><a href="">{$info.title}</a>
+            </div>
+        </div>
+        <div class="scd_m">
+            <div class="pro_da">
+                <h1>{$info.title}</h1>
+                <div class="des">{$info.add_time|date="Y-m-d",###}</div>
+                <div class="m_ctn">
+                   {$info.content}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="base/footer" /}

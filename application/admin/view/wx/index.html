@@ -1,0 +1,100 @@
+{include file="base/header" /}
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+                    <button type="button" class="button border-red" onclick="DelSelect();"><span class="icon-trash-o"></span> 批量删除</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/add')}'"><span class="icon-plus-square-o"></span> 添加内容</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/setToken')}'"><span class="icon-plus-square-o"></span> 获取access_token</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getBackIP')}'"><span class="icon-plus-square-o"></span> 查询白名单</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getUserList')}'"><span class="icon-plus-square-o"></span> 查询用户列表</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/setCode')}'"><span class="icon-plus-square-o"></span> 生成二维码</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getCode')}'"><span class="icon-plus-square-o"></span> 获取二维码</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getMenu')}'"><span class="icon-plus-square-o"></span> 获取菜单</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/setMenu')}'"><span class="icon-plus-square-o"></span> 生成菜单</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/delMenu')}'"><span class="icon-plus-square-o"></span> 删除菜单</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getCustomService')}'"><span class="icon-plus-square-o"></span> 获取客服</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getMsgList')}'"><span class="icon-plus-square-o"></span> 查询消息</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getWxMsg')}'"><span class="icon-plus-square-o"></span> 读取接口消息</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/setMenu')}'"><span class="icon-plus-square-o"></span> 生成菜单</button>
+
+                </li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+			<tr>
+                <th>ID</th>
+                <th>appid</th>
+                <th>secret值</th>
+				<th>token</th>
+				<th>用户ID</th>
+				<th>备注</th>
+				<th>排序</th>
+                <th>操作</th>
+            </tr>
+            {volist name="rs" id="val"}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="{$val.id}" />
+                    {$val.id}</td>
+                <td>{$val.appid}</td>
+                <td>{$val.secret}</td>
+				<td>{$val.token}</td>
+				<td>{$val.userid}</td>
+				<td>{$val.remark}</td>
+				<td>{$val.orders}</td>
+                <td><div class="button-group">
+                    <a class="button border-main" href="{:url($controller.'/updates','id='.$val['id'])}"><span class="icon-edit"></span> 修改</a>
+                    <a class="button border-red" href="javascript:void(0)" onclick="return del({$val['id']})"><span class="icon-trash-o"></span> 删除</a> </div></td>
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="8"><div class="pagelist"> {$rs->render()}</div></td>
+            </tr>
+        </table>
+    </div>
+<script type="text/javascript">
+
+    function del(id){
+        //console.log("{:url('/admin/'.$controller.'/del/id/"+id+"')}");return false;
+        if(confirm("您确定要删除吗?")){
+            window.location.href="{:url('/admin/'.$controller.'/del/id/"+id+"')}";
+        }
+    }
+
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect(){
+        var Checkbox=false;
+        var ids='';
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+                ids+=this.value+',';
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要删除选中的内容吗？");
+            if (t==true){
+                //console.log(ids);
+                window.location.href="{:url('/admin/'.$controller.'/dels/id/"+ids+"')}";
+            }
+        }
+        else{
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+
+</script>
+{include file="base/footer" /}

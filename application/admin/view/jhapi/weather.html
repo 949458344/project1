@@ -1,0 +1,78 @@
+{include file="base/header" /}
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <a href="https://www.juhe.cn/" target="_blank"><button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span>聚合接口网址</button></a>
+                    <a href="http://www.kuaidi100.com/" target="_blank"><button type="button" class="button border-red"><span class="icon-trash-o"></span> 快递100</button></a>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/weather')}'"><span class="icon-plus-square-o"></span> 天气查询</button>
+
+                </li>
+            </ul>
+        </div>
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 天气查询接口</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" enctype="multipart/form-data" action="{:url($controller.'/weather')}">
+                <div class="form-group">
+                    <div class="label">
+                        <label>查询天气地址：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="成都" name="address" data-validate="required:请输入内容" />101010100
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label></label>
+                    </div>
+                    <div class="field">
+                        <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 当前日期:{$today['city']}--{$today['wendu']}度--{$today['ganmao']}</strong></div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>ID</th>
+                <th>日期</th>
+                <th>风力</th>
+                <th>类型（雨阴晴）</th>
+                <th>最高温度</th>
+                <th>最低温度</th>
+            </tr>
+            <tr>
+                <td>昨天</td>
+                <td>{$yesterday.date}</td>
+                <td>{$yesterday.fl}</td>
+                <td>{$yesterday.type}</td>
+                <td>{$yesterday.high}</td>
+                <td>{$yesterday.low}</td>
+            </tr>
+            {volist name="rs2" id="val"}
+            <tr>
+                <td>未来几天
+                    {$key+1}</td>
+                <td>{$val.date}</td>
+                <td>{$val.fengli}</td>
+                <td>{$val.type}</td>
+                <td>{$val.high}</td>
+                <td>{$val.low}</td>
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="8"><div class="pagelist"> </div></td>
+            </tr>
+        </table>
+        <table class="table table-hover text-center">
+        {volist name="rs" id="val"}
+        <tr>
+            <td>{$key}</td>
+            <td>{$val}</td>
+        </tr>
+        {/volist}
+        </table>
+    </div>
+{include file="base/footer" /}

@@ -1,0 +1,20 @@
+{include file="base/header" /}
+<div class="scd clearfix">
+    <div class="scd_l">
+        <!-- include tpl=block_pcate -->
+    </div>
+    <div class="scd_r">
+        <div class="title">
+            <span>{$info.title}</span>
+            <div class="pst">
+                当前位置：<a href="{:url('index/index')}">首页</a>><a href="">{$info.title}</a>
+            </div>
+        </div>
+        <div class="scd_m">
+            <div class="contact">
+                {$info.content}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="base/footer" /}

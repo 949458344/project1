@@ -1,0 +1,100 @@
+{include file="base/header" /}
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+                    <button type="button" class="button border-red" onclick="DelSelect();"><span class="icon-trash-o"></span> 批量删除</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/add')}'"><span class="icon-plus-square-o"></span> 添加内容</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/setToken')}'"><span class="icon-plus-square-o"></span> 获取access_token</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getBackIP')}'"><span class="icon-plus-square-o"></span> 查询白名单</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getUserList')}'"><span class="icon-plus-square-o"></span> 查询用户列表</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/setCode')}'"><span class="icon-plus-square-o"></span> 生成二维码</button>
+					<button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/getCode')}'"><span class="icon-plus-square-o"></span> 获取二维码</button>
+                </li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>ID-openid-{$source}</th>
+                <th>昵称</th>
+                <th>性别</th>
+				<th>语言</th>
+				<th>国家</th>
+				<th>省份</th>
+				<th>城市</th>
+				<th>头像地址</th>
+				<th>关注时间</th>
+				<th>备注</th>
+				<th>分组</th>
+                <th>操作</th>
+            </tr>
+            {volist name="rsDate" id="val"}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="{$val.openid}" />
+                    {$val.openid}</td>
+                <td>{$val.nickname}</td>
+                <td>{$val.sex}</td>
+				<td>{$val.language}</td>
+				<td>{$val.country}</td>
+				<td>{$val.province}</td>
+				<td>{$val.city}</td>
+				<td><img src="{$val.headimgurl}"/></td>
+				<td>{$val.subscribe_time|date='Y-m-d H:i:s',###}</td>
+				<td>{$val.remark}</td>
+				<td>{$val.groupid}</td>
+                <td><div class="button-group">
+                    <a class="button border-main" href="{:url($controller.'/replaymsg','id='.$val['openid'])}"><span class="icon-edit"></span> 回复消息</a>
+                    <!--<a class="button border-red" href="javascript:void(0)" onclick="return del({$val['openid']})"><span class="icon-trash-o"></span> 删除</a>--> </div></td>
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="8"><div class="pagelist"> </div></td>
+            </tr>
+        </table>
+    </div>
+<script type="text/javascript">
+
+    function del(id){
+        //console.log("{:url('/admin/'.$controller.'/del/id/"+id+"')}");return false;
+        if(confirm("您确定要删除吗?")){
+            window.location.href="{:url('/admin/'.$controller.'/del/id/"+id+"')}";
+        }
+    }
+
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect(){
+        var Checkbox=false;
+        var ids='';
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+                ids+=this.value+',';
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要删除选中的内容吗？");
+            if (t==true){
+                //console.log(ids);
+                window.location.href="{:url('/admin/'.$controller.'/dels/id/"+ids+"')}";
+            }
+        }
+        else{
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+
+</script>
+{include file="base/footer" /}

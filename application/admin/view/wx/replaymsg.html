@@ -1,0 +1,36 @@
+{include file="base/header" /}
+<div class="panel admin-panel margin-top" id="add">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 回复内容(微信将会把消息数据推送给开发者，开发者可以在一段时间内（目前修改为48小时）)</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url($controller.'/replaymsg')}">
+            <input type="hidden" name="id" value="{$openid}">
+            <div class="form-group">
+                <div class="label">
+                    <label>openid：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$openid}" name="openid" data-validate="required:请输入内容" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>回复内容：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="华育国际桐梓林校区欢迎你" name="content" data-validate="required:请输入内容" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file="base/footer" /}

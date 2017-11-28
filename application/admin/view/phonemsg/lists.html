@@ -1,0 +1,80 @@
+{include file="base/header" /}
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+                    <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/lists')}'"><span class="icon-plus-square-o"></span> 短信查询</button>
+                </li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>sID</th>
+                <th>手机号码</th>
+                <th>内容</th>
+                <th>发送时间</th>
+                <th>发送状态</th>
+                <th>接收状态</th>
+                <th>接收时间</th>
+                <th>错误提示</th>
+            </tr>
+            {volist name="rs" id="val"}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="1" />
+                    {$val.sid}--{$key+1}</td>
+                <td>{$val.mobile}</td>
+                <td>{$val.text}</td>
+                <td>{$val.send_time}</td>
+                <td>{$val.send_status}</td>
+                <td>{$val.report_status}</td>
+                <td>{$val.user_receive_time}</td>
+                <td>{$val.error_msg}</td>
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="8"><div class="pagelist"> </div></td>
+            </tr>
+        </table>
+    </div>
+<script type="text/javascript">
+
+    function del(id){
+        //console.log("{:url('/admin/'.$controller.'/del/id/"+id+"')}");return false;
+        if(confirm("您确定要删除吗?")){
+            window.location.href="{:url('/admin/'.$controller.'/del/id/"+id+"')}";
+        }
+    }
+
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect(){
+        var Checkbox=false;
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要删除选中的内容吗？");
+            if (t==false) return false;
+        }
+        else{
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+
+</script>
+{include file="base/footer" /}

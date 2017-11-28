@@ -1,0 +1,49 @@
+{include file="base/header" /}
+<div class="scd clearfix">
+    <div class="scd_l">
+        <div class="title"><span>{$navs.title}</span></div>
+        <div class="scd_lm">
+            <ul class="s_nav s_nav_a">
+                {volist name="topNews" id="vo"}
+                <li class="now">
+                    <div class="li_m">
+                        <a href="{:url('index/detail','id='.$vo['id'])}"><span>{$vo.title}</span></a>
+                    </div>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <div class="scd_r">
+        <div class="title">
+            <span>课程列表</span>
+            <div class="pst">
+                当前位置：<a href="{:url('index')}">首页</a>><a href="">{$navs.title}</a>
+            </div>
+        </div>
+        <div class="scd_m">
+            <ul class="px_l">
+                {volist name="list" id="vo"}
+                <li>
+                    <a href="{:url('index/detail','id='.$vo['id'])}">
+                        <p>{$vo.title}</p>
+                        <span>{$vo.add_time|date="Y-m-d",###}</span>
+                    </a>
+                </li>
+                {/volist}
+            </ul>
+            <div class="space_hx">&nbsp;</div>
+            <div class="pages">
+                <a href="" class="now">1</a>
+                <a href="">2</a>
+                <a href="">上一页</a>
+                <a href="">下一页</a>
+                <span>跳转</span>
+                <input name="" type="text">
+                <span>页</span>
+                <input name="" type="submit" value="GO" class="p_btn">
+            </div>
+        </div>
+    </div>
+</div>
+{include file="base/footer" /}

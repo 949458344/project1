@@ -1,0 +1,67 @@
+{include file="base/header" /}
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <a href="https://www.juhe.cn/" target="_blank"><button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span>聚合接口网址</button></a>
+                    <a href="http://www.kuaidi100.com/" target="_blank"><button type="button" class="button border-red"><span class="icon-trash-o"></span> 快递100</button></a>
+                    <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/weather')}'"><span class="icon-plus-square-o"></span> 天气查询</button>
+
+                </li>
+            </ul>
+        </div>
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 快递查询接口</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" enctype="multipart/form-data" action="{:url($controller.'/kuaidi')}">
+                <div class="form-group">
+                    <div class="label">
+                        <label>快递类型：拼音</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$rs.com}" name="type" data-validate="required:请输入内容" />
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>快递号码：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$rs.nu}" name="idnum" data-validate="required:请输入内容" />
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label></label>
+                    </div>
+                    <div class="field">
+                        <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>ID</th>
+                <th>时间</th>
+                <th>内容</th>
+                <th>地址</th>
+            </tr>
+            {volist name="rsDate" id="val"}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="" />
+                    {$key}</td>
+                <td>{$val.time}</td>
+                <td>{$val.context}</td>
+                <td>{$val.location}</td>
+
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="8"><div class="pagelist"> </div></td>
+            </tr>
+        </table>
+    </div>
+{include file="base/footer" /}

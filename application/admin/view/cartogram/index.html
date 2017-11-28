@@ -1,0 +1,21 @@
+{include file="base/header" /}
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search">
+            <li>
+                <button type="button"  class="button border-green" onclick="window.location.href='{:url($controller.'/index')}'"><span class="icon-check"></span>条形统计图</button>
+                <button type="button" onclick="window.location.href='{:url($controller.'/pie')}'" class="button border-red"><span class="icon-trash-o"></span> 饼图</button>
+                <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/curve')}'"><span class="icon-plus-square-o"></span> 曲线图</button>
+            </li>
+        </ul>
+    </div>
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>jpgraph条形统计图</strong></div>
+    <div class="body-content">
+        <img src="{:url('barGraph')}"/>
+        <img src="{:url('barGraph2')}"/>
+        <img src="{:url('barGraph3')}"/>
+    </div>
+</div>
+{include file="base/footer" /}
+

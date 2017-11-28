@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询列表</title>
+    <style>
+        *{
+            margin:0px auto;
+            padding:0px;
+        }
+        .main{
+            width:800px;
+            height:300px;
+            border:1px solid black;
+        }
+        .main ul li{
+            list-style-type:none;
+            width:197px;
+            height:45px;
+            float:left;
+            border:1px solid black;
+            text-align:center;
+            overflow: hidden;
+        }
+        .main a{
+            text-decoration: none;
+        }
+        .red{color:red;font-size: 20px;}
+        .pageNum{width:30px;}
+        .pagelist{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<a href="index.html">添加</a>
+<div class="main">
+    <ul>
+        <li>ID</li>
+        <li>title</li>
+        <li>密码</li>
+        <li>操作</li>
+        {volist name="rs" id="val" empty="暂时没有数据"}
+        <li>{$val.id}</li>
+        <li>{$val.username}</li>
+        <li>{$val.pwd}</li>
+        <li><a href="{:url('user/update','id='.$val.id)}">修改</a>
+            &nbsp;<a href="javascript:volid(0)" onclick="del({$val['id']})">删除</a></li>
+        <!--{foreach $rs as $val}-->
+            <!--{/foreach}-->
+        {/volist}
+    </ul>
+</div>
+<script>
+    function del(id){
+        if(confirm("确认删除")){
+            //js页面跳转
+            alert("{:url('user/update/id/"+id+"')}");
+            return false;
+            window.location.href="{:url('user/update/id/"+id+"')}";
+        }
+    }
+</script>

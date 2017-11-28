@@ -1,0 +1,101 @@
+{include file="base/header" /}
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">列表管理</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search">
+            <li>
+                <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+                <button type="button" onclick="DelSelect();" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+                <button type="button" class="button border-yellow" onclick="window.location.href='{:url($controller.'/expuser')}'"><span class="icon-plus-square-o"></span> 导出数据并生成excel</button>
+            </li>
+        </ul>
+    </div>
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> excel导入</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url($controller.'/impuser')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>选择excle文件：</label>
+                </div>
+                <div class="field">
+                    <input type="file" name="myfile"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table table-hover text-center">
+        <tr>
+            <th>ID</th>
+            <th>手机号码</th>
+            <th>内容</th>
+            <th>发送时间</th>
+            <th>操作</th>
+        </tr>
+        {volist name="rs" id="val"}
+        <tr>
+            <td><input type="checkbox" name="id[]" value="{$val.id}" />
+                {$val.id}</td>
+            <td>{$val.phone}</td>
+            <td>{$val.content}</td>
+            <td>{$val.add_time|date="Y-m-d H:i:s",###}</td>
+            <td><div class="button-group">
+                <a class="button border-main" href="{:url($controller.'/updates','id='.$val['id'])}"><span class="icon-edit"></span> 修改</a>
+                <a class="button border-red" href="javascript:void(0)" onclick="return del({$val['id']})"><span class="icon-trash-o"></span> 删除</a> </div></td>
+        </tr>
+        {/volist}
+        <tr>
+            <td colspan="8"><div class="pagelist"> {$rs->render()}</div></td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+
+    function del(id){
+        //console.log("{:url('/admin/'.$controller.'/del/id/"+id+"')}");return false;
+        if(confirm("您确定要删除吗?")){
+            window.location.href="{:url('/admin/'.$controller.'/del/id/"+id+"')}";
+        }
+    }
+
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect(){
+        var Checkbox=false;
+        var ids='';
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+                ids+=this.value+',';
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要删除选中的内容吗？");
+            //console.log(ids);
+            window.location.href="{:url('/admin/'.$controller.'/dels/id/"+ids+"')}";
+        }
+        else{
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+</script>
+{include file="base/footer" /}
+

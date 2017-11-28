@@ -1,0 +1,60 @@
+{include file="base/header" /}
+<!-- 配置文件 -->
+<script type="text/javascript" src="__ROOT__/static/uedit/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__ROOT__/static/uedit/ueditor.all.js"></script>
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="__ROOT__/static/uedit/lang/zh-cn/zh-cn.js"></script>
+<div class="panel admin-panel margin-top" id="add">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 修改内容</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url($controller.'/updates')}">
+
+            <input type="hidden" name="id" value="{$info.id}">
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$info.title}" name="title" data-validate="required:请输入标题" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>排序：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="orders" value="{$info.orders}"  data-validate="required:,number:排序必须为数字" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>内容：</label>
+                </div>
+                <div class="field">
+                    <!-- 加载编辑器的容器 -->
+                    <textarea class="input" id="content" name="content" style=" height:210px;width:800px;">{$info['content']}</textarea>
+
+                    <!-- 实例化编辑器 -->
+                    <script type="text/javascript">
+                        /*var editor = new UE.ui.Editor();
+                         editor.render("content");*/
+                        //1.2.4以后可以使用一下代码实例化编辑器
+                        UE.getEditor('content')
+                    </script>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file="base/footer" /}
